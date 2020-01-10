@@ -1,0 +1,6 @@
+framework module Pods_flying_sushi {
+  umbrella header "Pods-flying-sushi-umbrella.h"
+
+  export *
+  module * { export * }
+}
