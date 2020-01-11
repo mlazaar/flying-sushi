@@ -31,11 +31,22 @@ class SessionStore : ObservableObject {
         password: String,
         handler: @escaping AuthDataResultCallback
     ) {
-        Auth.auth().createUser(withEmail: email, password: password, completion: handler)
-        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-        changeRequest?.displayName = displayName
-        changeRequest?.commitChanges { (error) in
-            print(error!)
+        Auth.auth().createUser(withEmail: email, password: password){(result, error) in
+            if error != nil {
+                print(error!)
+                return
+            }
+            
+            guard let uid = result?.user.uid else { return }
+            let values = ["email": email, "displayName":displayName, "password":password ]
+            Database.database().reference().child("users").child(uid).updateChildValues(values, withCompletionBlock: {
+                (error, ref) in
+                if error != nil{
+                    print(error!)
+                    return
+                }
+                print("Succesfully signed in")
+            })
         }
     }
     
