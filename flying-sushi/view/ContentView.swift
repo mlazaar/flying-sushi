@@ -18,7 +18,7 @@ struct ContentView: View {
             if(session.session != nil) {
                 AppView()
             } else {
-                AuthenticationScreen()
+                HomeScreen()
             }
         }.onAppear(perform: getUser)
     }

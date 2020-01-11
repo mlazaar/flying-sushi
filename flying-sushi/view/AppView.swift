@@ -9,8 +9,26 @@
 import SwiftUI
 
 struct AppView: View {
+    
+    @EnvironmentObject var session: SessionStore
+    
     var body: some View {
-        Text("Hello, App View!")
+        
+        ZStack{
+            VStack{
+                
+                HStack(spacing: 20.0){
+                    Text("Hello, \(String(session.session?.displayName ?? " App"))")
+                    Button(action: logout) {
+                        Text("Logout")
+                    }.foregroundColor(.red)
+                }
+            }
+        }
+    }
+    
+    func logout(){
+        session.signOut()
     }
 }
 
