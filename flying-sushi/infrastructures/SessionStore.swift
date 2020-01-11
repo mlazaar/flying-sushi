@@ -12,7 +12,7 @@ class SessionStore : ObservableObject {
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             if let user = user {
                 // if we have a user, create a new user model
-                print("Got user: \(String(describing: user.email))")
+                print("Got user: \(String(describing: user.displayName))")
                 self.session = User(
                     uid: user.uid,
                     displayName: user.displayName,

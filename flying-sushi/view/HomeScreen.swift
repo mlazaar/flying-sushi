@@ -9,12 +9,6 @@
 import SwiftUI
 import os.log
 
-extension Color {
-    static let backgroundColor = Color("backgroundColor")
-    static let buttonColor = Color("buttonColor")
-}
-
-
 struct SignInView: View{
     @State var email: String = ""
     @State var password: String = ""
@@ -28,11 +22,13 @@ struct SignInView: View{
         ZStack{
             Color.backgroundColor.edgesIgnoringSafeArea(.all)
             VStack(alignment: .center) {
+                // LOGO
                 Image("signin")
                     .resizable()
                     .cornerRadius(70)
                     .frame(width: 200,height: 200)
                     .offset(y:-60)
+                
                 HStack {
                     Text("Sign")
                         .font(.system(size: 25, weight: .heavy, design: .default))
@@ -43,16 +39,18 @@ struct SignInView: View{
                         .foregroundColor(.buttonColor)
                         .padding(.bottom)
                 }
+                
                 TextField("E-mail address", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .cornerRadius(13)
                     .autocapitalization(.none)
-                    .background(Color.white)
                     .padding()
+                
+                
                 SecureField("Password", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .cornerRadius(20)
+                    .cornerRadius(13)
                     .autocapitalization(.none)
-                    .background(Color.white)
                     .padding()
                 
                 Button(action: signIn) {
@@ -116,19 +114,18 @@ struct SignUpView: View {
                 }
                 TextField("E-mail address", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .cornerRadius(13)
                     .autocapitalization(.none)
-                    .background(Color.white)
                     .padding()
                 TextField("Name", text: $displayName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .cornerRadius(13)
                     .autocapitalization(.none)
-                    .background(Color.white)
                     .padding()
                 SecureField("Password", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .cornerRadius(20)
+                    .cornerRadius(13)
                     .autocapitalization(.none)
-                    .background(Color.white)
                     .padding()
                 
                 Button(action: signUp) {

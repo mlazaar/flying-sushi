@@ -18,7 +18,7 @@ struct AppView: View {
             VStack{
                 
                 HStack(spacing: 20.0){
-                    Text("Hello, \(String(session.session?.displayName ?? " App"))")
+                    Text("Hello, \(String(session.session!.email ?? " App"))")
                     Button(action: logout) {
                         Text("Logout")
                     }.foregroundColor(.red)
