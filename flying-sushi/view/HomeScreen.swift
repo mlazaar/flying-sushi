@@ -15,7 +15,7 @@ extension Color {
 }
 
 
-struct SignUpView: View {
+struct SignInView: View{
     @State var email: String = ""
     @State var password: String = ""
     @State var displayName: String = ""
@@ -25,31 +25,126 @@ struct SignUpView: View {
     @EnvironmentObject var session: SessionStore
     
     var body: some View {
-        let nav = VStack(alignment: .center) {
-            Text("Create an account")
-                .font(.title)
-                .padding(.horizontal)
-                .padding(.vertical)
-            TextField("E-mail address", text: $email)
-                .autocapitalization(.none)
-                .padding()
-            TextField("Name", text: $displayName)
-                .padding()
-            SecureField("Password", text: $password)
-                .padding()
-            
-            Button(action: signUp) {
-                Text("Sign Up")
-            }.foregroundColor(.red)
-            
-            Divider()
-        }.padding()
-        
-        return nav
+        ZStack{
+            Color.backgroundColor.edgesIgnoringSafeArea(.all)
+            VStack(alignment: .center) {
+                Image("signin")
+                    .resizable()
+                    .cornerRadius(70)
+                    .frame(width: 200,height: 200)
+                    .offset(y:-60)
+                HStack {
+                    Text("Sign")
+                        .font(.system(size: 25, weight: .heavy, design: .default))
+                        .foregroundColor(.white)
+                        .padding(.bottom)
+                    Text("In")
+                        .font(.system(size: 25, weight: .heavy, design: .default))
+                        .foregroundColor(.buttonColor)
+                        .padding(.bottom)
+                }
+                TextField("E-mail address", text: $email)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .autocapitalization(.none)
+                    .background(Color.white)
+                    .padding()
+                SecureField("Password", text: $password)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .cornerRadius(20)
+                    .autocapitalization(.none)
+                    .background(Color.white)
+                    .padding()
+                
+                Button(action: signIn) {
+                    Text("Sign In").padding()
+                        .font(.system(size: 25, weight: .heavy, design: .default))
+                        .foregroundColor(.white)
+                }
+                .frame(width: 300)
+                .background(Color.buttonColor)
+                .cornerRadius(20)
+                .offset(y:50)
+            }
+        }
+    }
+    
+    
+    func signIn () {
+        loading = true
+        error = false
+        session.signIn(email: email, password: password) { (result, error) in
+            self.loading = false
+            if error != nil {
+                
+                self.error = true
+            } else {
+                self.email = ""
+                self.password = ""
+            }
+        }
+    }
+    
+}
+
+
+struct SignUpView: View {
+    @State var email: String = ""
+    @State var password: String = ""
+    @State var displayName: String = ""
+    @State var loading = false
+    @State var error = false
+    
+    @EnvironmentObject var session: SessionStore
+    var body: some View {
+        ZStack{
+            Color.backgroundColor.edgesIgnoringSafeArea(.all)
+            VStack(alignment: .center) {
+                Image("signup")
+                    .resizable()
+                    .cornerRadius(70)
+                    .frame(width: 200,height: 200)
+                    .offset(y:-60)
+                HStack {
+                    Text("Create")
+                        .font(.system(size: 25, weight: .heavy, design: .default))
+                        .foregroundColor(.white)
+                        .padding(.bottom)
+                    Text("an account")
+                        .font(.system(size: 25, weight: .heavy, design: .default))
+                        .foregroundColor(.buttonColor)
+                        .padding(.bottom)
+                }
+                TextField("E-mail address", text: $email)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .autocapitalization(.none)
+                    .background(Color.white)
+                    .padding()
+                TextField("Name", text: $displayName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .autocapitalization(.none)
+                    .background(Color.white)
+                    .padding()
+                SecureField("Password", text: $password)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .cornerRadius(20)
+                    .autocapitalization(.none)
+                    .background(Color.white)
+                    .padding()
+                
+                Button(action: signUp) {
+                    Text("Sign Up").padding()
+                        .font(.system(size: 25, weight: .heavy, design: .default))
+                        .foregroundColor(.white)
+                }
+                .frame(width: 300)
+                .background(Color.buttonColor)
+                .cornerRadius(20)
+                .offset(y:30)
+            }
+        }
     }
     
     func signUp () {
-        print("sign me up")
         loading = true
         error = false
         session.signUp(email: email, displayName: displayName, password: password) { (result, error) in
@@ -66,16 +161,7 @@ struct SignUpView: View {
 }
 
 
-
-
-
 struct HomeScreen: View {
-    @State var email: String = ""
-    @State var password: String = ""
-    @State var loading = false
-    @State var error = false
-    
-    @EnvironmentObject var session: SessionStore
     
     
     var body: some View {
@@ -86,7 +172,6 @@ struct HomeScreen: View {
                     Image("logo")
                         .cornerRadius(70)
                         .frame(width: 100.0)
-                    
                     Group{
                         VStack {
                             HStack {
@@ -97,7 +182,7 @@ struct HomeScreen: View {
                                     .font(.system(size: 25, weight: .heavy, design: .default))
                                     .foregroundColor(.buttonColor)
                             }
-                            Button(action: signIn) {
+                            NavigationLink(destination: SignUpView()) {
                                 Text("Sign Up").padding()
                                     .font(.system(size: 25, weight: .heavy, design: .default))
                                     .foregroundColor(.white)
@@ -106,10 +191,8 @@ struct HomeScreen: View {
                                 .cornerRadius(20)
                                 .offset(y:50)
                         }
-                        
                     }
                     Spacer()
-                    
                     Section{
                         VStack{
                             Divider()
@@ -118,7 +201,7 @@ struct HomeScreen: View {
                                 Text("Already signed in ?")
                                     .font(.footnote)
                                     .foregroundColor(.white)
-                                NavigationLink(destination: SignUpView()) {
+                                NavigationLink(destination: SignInView()) {
                                     Text("Sign in.").font(.footnote)
                                         .foregroundColor(.buttonColor)
                                 }
@@ -127,21 +210,6 @@ struct HomeScreen: View {
                     }
                 }
                 .padding()
-            }
-        }
-    }
-    
-    func signIn () {
-        loading = true
-        error = false
-        session.signIn(email: email, password: password) { (result, error) in
-            self.loading = false
-            if error != nil {
-                
-                self.error = true
-            } else {
-                self.email = ""
-                self.password = ""
             }
         }
     }
