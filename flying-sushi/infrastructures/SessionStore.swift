@@ -7,22 +7,36 @@ class SessionStore : ObservableObject {
     @Published  var session: User? { didSet { self.didChange.send(self) }}
     @Published   var handle: AuthStateDidChangeListenerHandle?
     
+    private var ref: DatabaseReference = Database.database().reference()
+    
     func listen () {
-        // monitor authentication changes using firebase
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             if let user = user {
                 // if we have a user, create a new user model
-                print("Got user: \(String(describing: user.displayName))")
-                self.session = User(
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    email: user.email
-                )
+                self.ref.child("users").child(user.uid).observeSingleEvent(of  : .value) {
+                    (snapshot) in
+                    let dictionnary = snapshot.value as? [String: AnyObject]
+                    self.session = User(
+                        uid: user.uid,
+                        displayName: dictionnary!["displayName"] as! String?,
+                        email: user.email
+                    )
+                }
+                
             } else {
-                // if we don't have a user, set our session to nil
                 self.session = nil
             }
         }
+    }
+    
+    func loadUserData()-> [String: AnyObject]?{
+        guard let uid = Auth.auth().currentUser?.uid else {return nil}
+        var dictionnary:[String: AnyObject]?
+        self.ref.child("users").child(uid).observeSingleEvent(of  : .value) {
+            (snapshot) in
+            dictionnary = snapshot.value as? [String: AnyObject]
+        }
+        return dictionnary
     }
     
     func signUp(
@@ -39,7 +53,7 @@ class SessionStore : ObservableObject {
             
             guard let uid = result?.user.uid else { return }
             let values = ["email": email, "displayName":displayName, "password":password ]
-            Database.database().reference().child("users").child(uid).updateChildValues(values, withCompletionBlock: {
+            self.ref.child("users").child(uid).updateChildValues(values, withCompletionBlock: {
                 (error, ref) in
                 if error != nil{
                     print(error!)
@@ -74,5 +88,4 @@ class SessionStore : ObservableObject {
         }
     }
     
-    // additional methods (sign up, sign in) will go here
 }

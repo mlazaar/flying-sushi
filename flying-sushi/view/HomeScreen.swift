@@ -140,6 +140,7 @@ struct SignUpView: View {
             }
         }
     }
+
     
     func signUp () {
         loading = true

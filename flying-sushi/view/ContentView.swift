@@ -21,6 +21,7 @@ struct ContentView: View {
                 HomeScreen()
             }
         }.onAppear(perform: getUser)
+        .transition(.move(edge: .leading))
     }
     
     
