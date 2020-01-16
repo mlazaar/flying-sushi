@@ -15,48 +15,31 @@ struct MenuView: View {
     var body: some View {
         VStack {
             HStack {
-                Image(systemName: "person.circle.fill")
-                    .foregroundColor(.buttonColor)
-                    .imageScale(.large)
-                Text("Profile")
-                    .foregroundColor(.buttonColor)
-                    .font(.headline)
-                    .padding(.leading)
-
-            }
-            .padding(.top, 100)
-            HStack {
                 Image(systemName: "bag.fill")
-                    .foregroundColor(.backgroundColor)
-                    .imageScale(.small)
+                    .imageScale(.large)
                 NavigationLink(destination: OrderHistoryView()
                 ) {
                     Text("Orders")
-                        .foregroundColor(.buttonColor)
-                        .font(.headline)                 }
+                    }
                     .padding(.leading)
                     .navigationBarTitle("Orders")
                 
             }
-            .padding(.top, 30)
+            .padding(.top, 100)
             HStack {
                 Image(systemName: "cart.fill")
-                    .foregroundColor(.buttonColor)
                     .imageScale(.large)
                 NavigationLink(destination: CartView()
                 ) {
                     Text("Cart")
-                        .foregroundColor(.buttonColor)
-                        .font(.headline)                 }
+                }
                     .navigationBarTitle("Cart")
                     .padding(.leading)
-                
                 
             }
             .padding(.top, 30)
             HStack {
                 Image(systemName: "power")
-                    .foregroundColor(.buttonColor)
                     .imageScale(.large)
                 
                 Button(action: {
@@ -66,16 +49,13 @@ struct MenuView: View {
                     
                 }) {
                     Text("Logout")
-                        .foregroundColor(.buttonColor)
-                        .font(.headline)                }
-                
+                }.padding(.leading)
             }
             .padding(.top, 30)
             Spacer()
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.backgroundColor)
         .edgesIgnoringSafeArea(.all)
     }
     

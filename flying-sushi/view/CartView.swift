@@ -17,22 +17,25 @@ struct CartView: View {
     
     var body: some View {
         return VStack {
-            List(self.cart.orderItems) { orderItem in
-                VStack {
-                    HStack {
-                        
-                        Image("\(orderItem.photoItem)")
-                            .resizable()
-                            .frame(width: 50, height: 50, alignment: .leading)
-                        VStack(alignment: .leading) {
-                            Text("\(orderItem.nameItem)")
-                            Text("\(orderItem.descriptionItem)")
-                                .font(.system(size: 10))
+            List {
+                ForEach (self.cart.orderItems){ orderItem in
+                    VStack {
+                        HStack {
+                            Image("\(orderItem.photoItem)")
+                                .resizable()
+                                .frame(width: 50, height: 50, alignment: .leading)
+                            VStack(alignment: .leading) {
+                                Text("\(orderItem.nameItem)")
+                                Text("\(orderItem.descriptionItem)")
+                                    .font(.system(size: 10))
+                            }
+                            Spacer()
+                            Text("\(Util.getPriceToString(price: orderItem.priceItem))")
                         }
-                        Spacer()
-                        Text("\(Util.getPriceToString(price: orderItem.priceItem))")
                     }
                 }
+            .onDelete(perform: deleteItems)
+                
             }.onAppear {
                 UITableView.appearance().separatorStyle = .none
             }
@@ -47,21 +50,19 @@ struct CartView: View {
                 }
                 HStack {
                     Spacer()
-                    Button("Order") {
-                        if (self.cart.getCartPrice() != 0.0) {
-                            let order = Order(orderItems: self.cart.orderItems, priceOrder: self.cart.getCartPrice())
-                            self.orderHistory.addOrderHistory(order: order)
-                            
-                            self.cart.reinitCart()
-                            self.showAlert = true
-                        }
-                    }.alert(isPresented: self.$showAlert) {
-                        Alert(title: Text(""), message: Text("Ordered."), dismissButton: .default(Text("Got it!")))
-                    }.padding(.bottom, 10).padding(.trailing, 10)
+                    NavigationLink(destination: CheckoutView()) {
+                        Text("Order")
+                    }
+                .padding()
                 }
             }
         }
     }
+    
+    func deleteItems(at Offsets: IndexSet){
+        self.cart.orderItems.remove(atOffsets: Offsets)
+    }
+    
     
 }
 

@@ -29,6 +29,8 @@
 		197BFF2A23C7812D00AF2874 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 197BFF2923C7812D00AF2874 /* Preview Assets.xcassets */; };
 		197BFF2D23C7812D00AF2874 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 197BFF2B23C7812D00AF2874 /* LaunchScreen.storyboard */; };
 		197BFF3523C7813C00AF2874 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 197BFF3423C7813C00AF2874 /* GoogleService-Info.plist */; };
+		1981E66023D0B8A8009759A2 /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1981E65F23D0B8A8009759A2 /* CheckoutView.swift */; };
+		19E1602B23CF367200216B09 /* KeyboardGuardian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E1602A23CF367200216B09 /* KeyboardGuardian.swift */; };
 		19FDB57923C7838E0093F6A0 /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FDB57823C7838E0093F6A0 /* SessionStore.swift */; };
 		19FDB57C23C78BEB0093F6A0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FDB57B23C78BEB0093F6A0 /* User.swift */; };
 		91A79B7BB176B57FD11FDAF4 /* Pods_flying_sushi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFA7E6206D280EAA515A63F3 /* Pods_flying_sushi.framework */; };
@@ -59,6 +61,8 @@
 		197BFF2C23C7812D00AF2874 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		197BFF2E23C7812D00AF2874 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		197BFF3423C7813C00AF2874 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1981E65F23D0B8A8009759A2 /* CheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutView.swift; sourceTree = "<group>"; };
+		19E1602A23CF367200216B09 /* KeyboardGuardian.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardGuardian.swift; sourceTree = "<group>"; };
 		19FDB57823C7838E0093F6A0 /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
 		19FDB57B23C78BEB0093F6A0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3D76C8E46600D5BB6FFF0689 /* Pods-flying-sushi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flying-sushi.release.xcconfig"; path = "Target Support Files/Pods-flying-sushi/Pods-flying-sushi.release.xcconfig"; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 			children = (
 				193DAA3B23CDD53E00EF638D /* Util.swift */,
 				19591A3123CA1A0800DFB92F /* Color.swift */,
+				19E1602A23CF367200216B09 /* KeyboardGuardian.swift */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -172,6 +177,7 @@
 				1924E2A723C8820900E4AB26 /* AppView.swift */,
 				193286AA23C88554004F0780 /* HomeScreen.swift */,
 				193A555723CCDB5C009E7D58 /* MenuView.swift */,
+				1981E65F23D0B8A8009759A2 /* CheckoutView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -339,8 +345,10 @@
 				1924E2A823C8820900E4AB26 /* AppView.swift in Sources */,
 				193A555823CCDB5C009E7D58 /* MenuView.swift in Sources */,
 				197BFF2323C7812D00AF2874 /* SceneDelegate.swift in Sources */,
+				1981E66023D0B8A8009759A2 /* CheckoutView.swift in Sources */,
 				193DAA3C23CDD53E00EF638D /* Util.swift in Sources */,
 				193DAA3723CDD4C700EF638D /* OrderHistoryList.swift in Sources */,
+				19E1602B23CF367200216B09 /* KeyboardGuardian.swift in Sources */,
 				193DAA3E23CDD55B00EF638D /* OrderDetailView.swift in Sources */,
 				193DAA3A23CDD4E900EF638D /* ItemView.swift in Sources */,
 				197BFF2523C7812D00AF2874 /* ContentView.swift in Sources */,
@@ -482,7 +490,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C67EBDB84FDCB7203431D9DC /* Pods-flying-sushi.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"flying-sushi/Preview Content\"";
 				DEVELOPMENT_TEAM = Y4Y743PT2C;
@@ -503,7 +510,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3D76C8E46600D5BB6FFF0689 /* Pods-flying-sushi.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"flying-sushi/Preview Content\"";
 				DEVELOPMENT_TEAM = Y4Y743PT2C;

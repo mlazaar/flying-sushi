@@ -17,6 +17,8 @@ struct SignInView: View{
     @State var error = false
     
     @EnvironmentObject var session: SessionStore
+    @ObservedObject private var keyboard = KeyboardGuardian()
+    
     
     var body: some View {
         ZStack{
@@ -63,7 +65,10 @@ struct SignInView: View{
                 .cornerRadius(20)
                 .offset(y:50)
             }
-        }
+        }        .padding(.bottom, keyboard.currentHeight)
+            .animation(.easeOut(duration: 0.16))
+        
+        
     }
     
     
@@ -92,7 +97,16 @@ struct SignUpView: View {
     @State var loading = false
     @State var error = false
     
+    
+    private var validated: Bool {
+        !password.isEmpty
+    }
+    
     @EnvironmentObject var session: SessionStore
+    @ObservedObject private var keyboard = KeyboardGuardian()
+    
+    
+    
     var body: some View {
         ZStack{
             Color.backgroundColor.edgesIgnoringSafeArea(.all)
@@ -122,11 +136,13 @@ struct SignUpView: View {
                     .cornerRadius(13)
                     .autocapitalization(.none)
                     .padding()
+                
                 SecureField("Password", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .cornerRadius(13)
                     .autocapitalization(.none)
                     .padding()
+                
                 
                 Button(action: signUp) {
                     Text("Sign Up").padding()
@@ -137,10 +153,18 @@ struct SignUpView: View {
                 .background(Color.buttonColor)
                 .cornerRadius(20)
                 .offset(y:30)
+                
+                
+                
             }
         }
+        .padding(.bottom, keyboard.currentHeight)
+        .animation(.easeOut(duration: 0.16))
+        
+        
+        
     }
-
+    
     
     func signUp () {
         loading = true
@@ -148,23 +172,24 @@ struct SignUpView: View {
         session.signUp(email: email, displayName: displayName, password: password) { (result, error) in
             self.loading = false
             if error != nil {
-                print("\(String(describing: error))")
                 self.error = true
             } else {
                 self.email = ""
                 self.password = ""
             }
+            
         }
+        
     }
 }
 
 
 struct HomeScreen: View {
     
-    
     var body: some View {
         NavigationView{
             ZStack{
+                
                 Color.backgroundColor.edgesIgnoringSafeArea(.all)
                 VStack(alignment: .center){
                     Image("logo")
@@ -180,15 +205,17 @@ struct HomeScreen: View {
                                     .font(.system(size: 25, weight: .heavy, design: .default))
                                     .foregroundColor(.buttonColor)
                             }
-                            NavigationLink(destination: SignUpView()) {
-                                Text("Sign Up").padding()
-                                    .font(.system(size: 25, weight: .heavy, design: .default))
-                                    .foregroundColor(.white)
-                            }.frame(width: 300)
-                                .background(Color.buttonColor)
-                                .cornerRadius(20)
-                                .offset(y:50)
-                        }
+                          NavigationLink(destination: SignUpView()) {
+                              Text("Sign Up").padding()
+                                  .font(.system(size: 25, weight: .heavy, design: .default))
+                                  .foregroundColor(.white)
+                          }
+                          .frame(width: 300)
+                          .background(Color.buttonColor)
+                          .cornerRadius(20)
+                          .offset(y:30)
+                        
+                
                     }
                     Spacer()
                     Section{
@@ -217,4 +244,5 @@ struct AuthenticationScreen_Previews: PreviewProvider {
     static var previews: some View {
         HomeScreen()
     }
+}
 }

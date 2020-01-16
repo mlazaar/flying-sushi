@@ -57,7 +57,7 @@ struct AppView: View {
         return NavigationView {
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
-                    Color.buttonColor.edgesIgnoringSafeArea(.all)
+                    Color.gray.edgesIgnoringSafeArea(.all)
                     MainView(showMenu: self.$showMenu)
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .offset(x:self.showMenu ? geometry.size.width/2 : 0)
@@ -79,7 +79,10 @@ struct AppView: View {
                     .imageScale(.large)
                 }
             
-            ))
+                ), trailing: NavigationLink(destination: CartView()){
+                    Image(systemName: "cart.fill")
+                        .imageScale(.large)
+            })
         }
         
     }

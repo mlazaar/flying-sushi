@@ -13,4 +13,8 @@ pod 'FirebaseUI/Auth'
 pod 'Firebase/Firestore'
 pod 'FirebaseUI/Google'
 pod 'Firebase/Database'
+pod 'SDWebImageSwiftUI'
+pod 'lottie-ios'
+pod 'Contentful'
+pod 'SDWebImage'
 end

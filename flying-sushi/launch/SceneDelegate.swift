@@ -35,6 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 .environmentObject(orderHistory)
                 .environmentObject(session))
                 
+                
             self.window = window
             window.makeKeyAndVisible()
         }
